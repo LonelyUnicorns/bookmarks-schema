@@ -1,0 +1,38 @@
+
+type Bookmark {
+	id: ID!,
+	title: String!
+	link: String!
+}
+
+type BookMarksGroup {
+	id: ID!,
+	title: String!,
+	description: String,
+	bookmarks(first: Int): [Bookmark]
+}
+
+type Query {
+  bookmark(id: Int): Bookmark,
+  bookmarks: [Bookmark],
+  group(id: Int): BookMarksGroup,
+  groups: [BookMarksGroup],
+  allGroups: [BookMarksGroup]
+}
+
+type Mutation {
+	createBookmark(
+		title: String,
+		link: String,
+		description: String,
+		group_id: Int
+	): Bookmark,
+	createGroup(
+		title: String,
+	): BookMarksGroup
+}
+
+schema {
+  query: Query,
+  mutation: Mutation,
+}
